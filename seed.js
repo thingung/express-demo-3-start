@@ -1,4 +1,4 @@
-const { db } = require('./db');
+const { db, Character, Movie } = require('./db');
 
 const Characters = [
     {
@@ -50,6 +50,8 @@ const Movies = [
 const seed = async () => {
     try {
         await db.sync({ force: true });
+        await Promise.all(Movies.map(movie => Movie.create(movie)));
+        await Promise.all(Characters.map(character => Character.create(character)));
 
         console.log('I am done seeding! Let the show begin!');
     } catch (e) {

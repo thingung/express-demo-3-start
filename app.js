@@ -13,10 +13,13 @@ const setup = async () => {
         app.use('/characters', characterRouter);
 
         app.use((req, res) => {
+            res.status(404).send('No information');
 
         });
 
-        app.use((err, req, res, next) => {
+        app.use((err, req, res) => {
+            const status = err.status || 500;
+            res.status(status).send(err.message);
 
         })
 
